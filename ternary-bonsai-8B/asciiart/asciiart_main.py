@@ -1,7 +1,7 @@
 # Main entry point for the ASCII art generator
 
 import sys
-from asciiart.asciiart import generate_ascii_art, invert_string
+from asciiart import generate_ascii_art, invert_string
 
 def main():
     """
