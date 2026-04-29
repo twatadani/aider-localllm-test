@@ -4,9 +4,12 @@ def create_board(size=10):
     return [['.' for _ in range(size)] for _ in range(size)]
 
 def print_board(board):
-    """Print the Gomoku board."""
-    for row in board:
-        print(' '.join(row))
+    """Print the Gomoku board with coordinates."""
+    print('   ' + ' '.join(str(i) for i in range(len(board))))
+    print('  ' + '-' * (2 * len(board) - 1))
+    for i, row in enumerate(board):
+        print(str(i) + ' |' + ' '.join(row))
+    print()
 
 def is_valid_move(board, row, col):
     """Check if a move is valid."""
