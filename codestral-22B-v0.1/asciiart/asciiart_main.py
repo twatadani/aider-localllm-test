@@ -1,5 +1,5 @@
 import sys
-from pyfiglet import figlet_format
+from art import text2art
 
 def convert_to_ascii(text):
     """Convert input text to ASCII art.
@@ -10,7 +10,7 @@ def convert_to_ascii(text):
     Returns:
         str: The ASCII art representation of the text.
     """
-    return figlet_format(text)
+    return text2art(text)
 
 if __name__ == '__main__':
     # Get the input text from command line arguments.
