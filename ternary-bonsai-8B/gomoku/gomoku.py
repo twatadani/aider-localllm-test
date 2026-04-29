@@ -84,7 +84,7 @@ def play_game():
     
     # プレイヤーのID
     current_player = player
-    other_player = "O" if current_player == "X" else "X"
+    other_player = "O" if current_player == "X" else "O"
     
     # ゲームループ
     while True:
