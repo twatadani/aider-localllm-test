@@ -15,4 +15,6 @@ def print_directory_structure(start_path):
         print('{}{}/'.format(indent, os.path.basename(dirpath)))
         subindent = '    ' * level + '|-- ' if level > 0 else ''
         for f in filenames:
-            print('{}{}'.format(subindent, f))
+            fp = os.path.join(dirpath, f)
+            file_size = os.path.getsize(fp)
+            print('{}{} ({:.2f} KB)'.format(subindent, f, file_size / 1024))
