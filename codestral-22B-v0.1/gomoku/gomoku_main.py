@@ -22,11 +22,10 @@ def play_game():
             print("Computer's turn...")
             row, col = ai_move_func(board)
             make_move(board, row, col, 'O')
-        if check_winner(board, 'X'):
-            print("Congratulations! You won!")
-            break
-        elif check_winner(board, 'O'):
-            print("Computer won! Better luck next time.")
+        winner, winning_line = check_winner(board, 'X' if player else 'O')
+        if winner:
+            print_board(board, winning_line)
+            print("Congratulations! You won!" if player else "Computer won! Better luck next time.")
             break
         elif all(board[i][j] != '.' for i in range(10) for j in range(10)):
             print("It's a draw!")
