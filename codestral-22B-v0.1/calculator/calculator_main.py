@@ -13,7 +13,7 @@ def evaluate_expression(expression):
 
 if __name__ == "__main__":
     # コマンドライン引数から式を取得
-    expression = sys.argv[1]
+    expression = ' '.join(sys.argv[1:])
 
     # 式を評価して結果を取得
     result = evaluate_expression(expression)
