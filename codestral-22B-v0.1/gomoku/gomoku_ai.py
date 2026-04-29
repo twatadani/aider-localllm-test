@@ -47,6 +47,65 @@ def normal_ai(board):
     return best_move
 
 def strong_ai(board):
-    """Strong AI algorithm for Gomoku."""
-    # TODO: Implement strong AI algorithm
-    pass
+    """Strong AI algorithm for Gomoku using minimax with alpha-beta pruning."""
+    def evaluate(board, player):
+        """Evaluate the score of a board state."""
+        score = 0
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                if board[i][j] == player:
+                    for k in range(5):
+                        if i <= len(board)-5 and all(board[i+k][j] == player for k in range(5)):
+                            score += 10 ** (k+1)
+                        if j <= len(board[0])-5 and all(board[i][j+k] == player for k in range(5)):
+                            score += 10 ** (k+1)
+                        if i <= len(board)-5 and j <= len(board[0])-5 and all(board[i+k][j+k] == player for k in range(5)):
+                            score += 10 ** (k+1)
+                        if i <= len(board)-5 and j >= 4 and all(board[i+k][j-k] == player for k in range(5)):
+                            score += 10 ** (k+1)
+        return score
+
+    def minimax(board, depth, alpha, beta, maximizing_player):
+        """Minimax algorithm with alpha-beta pruning."""
+        winner, _ = check_winner(board, 'X')
+        if depth == 0 or winner:
+            return evaluate(board, 'O' if maximizing_player else 'X')
+        if maximizing_player:
+            max_eval = float('-inf')
+            for row in range(10):
+                for col in range(10):
+                    if is_valid_move(board, row, col):
+                        make_move(board, row, col, 'O')
+                        eval = minimax(board, depth-1, alpha, beta, False)
+                        board[row][col] = '.'
+                        max_eval = max(max_eval, eval)
+                        alpha = max(alpha, eval)
+                        if beta <= alpha:
+                            break
+            return max_eval
+        else:
+            min_eval = float('inf')
+            for row in range(10):
+                for col in range(10):
+                    if is_valid_move(board, row, col):
+                        make_move(board, row, col, 'X')
+                        eval = minimax(board, depth-1, alpha, beta, True)
+                        board[row][col] = '.'
+                        min_eval = min(min_eval, eval)
+                        beta = min(beta, eval)
+                        if beta <= alpha:
+                            break
+            return min_eval
+
+    best_score = float('-inf')
+    best_move = None
+    for row in range(10):
+        for col in range(10):
+            if is_valid_move(board, row, col):
+                make_move(board, row, col, 'O')
+                score = minimax(board, 4, float('-inf'), float('inf'), False)
+                board[row][col] = '.'
+                if score > best_score:
+                    best_score = score
+                    best_move = (row, col)
+    return best_move
