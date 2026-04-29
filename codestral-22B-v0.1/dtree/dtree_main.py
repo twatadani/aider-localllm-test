@@ -1,20 +1,14 @@
-import os
+import sys
+from directory_traversal import print_directory_structure
 
 def draw_directory_tree(path, indent=""):
-    print(indent + os.path.basename(path) + "/")
-    indent += "|  "
-    items = os.listdir(path)
-    for i, item in enumerate(items):
-        item_path = os.path.join(path, item)
-        if i == len(items) - 1:
-            prefix = "└──"
-        else:
-            prefix = "├──"
-        if os.path.isdir(item_path):
-            print(indent[:-2] + prefix, end="")
-            draw_directory_tree(item_path, indent)
-        else:
-            print(indent + prefix, item)
+    print("%s%s/" % (indent, path.split('/')[-1]))
+    for sub_path in [os.path.join(path, p) for p in os.listdir(path) if os.path.isdir(os.path.join(path, p))]:
+        draw_directory_tree(sub_path, indent + "    ")
 
 if __name__ == '__main__':
-    draw_directory_tree(".")
+    if len(sys.argv) > 1:
+        start_path = sys.argv[1]
+    else:
+        start_path = '.'
+    print_directory_structure(start_path)

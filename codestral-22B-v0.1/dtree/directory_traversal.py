@@ -1,6 +1,6 @@
 import os
 
-def get_size(start_path = '.'):
+def get_size(start_path):
     total_size = 0
     for dirpath, dirnames, filenames in os.walk(start_path):
         for f in filenames:
@@ -8,7 +8,7 @@ def get_size(start_path = '.'):
             total_size += os.path.getsize(fp)
     return total_size
 
-def print_directory_structure(start_path = '.'):
+def print_directory_structure(start_path):
     for dirpath, dirnames, filenames in os.walk(start_path):
         level = dirpath.replace(start_path, '').count(os.sep)
         indent = ' ' * 4 * (level)
