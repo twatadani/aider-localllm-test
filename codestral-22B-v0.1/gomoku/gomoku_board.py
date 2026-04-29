@@ -30,14 +30,18 @@ def check_winner(board, player):
     """Check if a player has won and return the winning line."""
     for i in range(len(board)):
         for j in range(len(board[0])):
-            if (board[i][j] == player and
-                ((all(board[i+k][j] == player for k in range(5)) if i <= len(board)-5 else False) and
-                 [(i+k, j) for k in range(5)] or
-                 (all(board[i][j+k] == player for k in range(5)) if j <= len(board[0])-5 else False) and
-                 [(i, j+k) for k in range(5)] or
-                 (all(board[i+k][j+k] == player for k in range(5)) if i <= len(board)-5 and j <= len(board[0])-5 else False) and
-                 [(i+k, j+k) for k in range(5)] or
-                 (all(board[i+k][j-k] == player for k in range(5)) if i <= len(board)-5 and j >= 4 else False) and
-                 [(i+k, j-k) for k in range(5)])):
-                return True, winning_line
+            if board[i][j] == player:
+                for k in range(5):
+                    if i <= len(board)-5 and all(board[i+k][j] == player for k in range(5)):
+                        winning_line = [(i+k, j) for k in range(5)]
+                        return True, winning_line
+                    if j <= len(board[0])-5 and all(board[i][j+k] == player for k in range(5)):
+                        winning_line = [(i, j+k) for k in range(5)]
+                        return True, winning_line
+                    if i <= len(board)-5 and j <= len(board[0])-5 and all(board[i+k][j+k] == player for k in range(5)):
+                        winning_line = [(i+k, j+k) for k in range(5)]
+                        return True, winning_line
+                    if i <= len(board)-5 and j >= 4 and all(board[i+k][j-k] == player for k in range(5)):
+                        winning_line = [(i+k, j-k) for k in range(5)]
+                        return True, winning_line
     return False, None
