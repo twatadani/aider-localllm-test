@@ -1,3 +1,4 @@
+import os
 import sys
 from directory_traversal import print_directory_structure
 
