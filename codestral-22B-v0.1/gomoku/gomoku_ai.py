@@ -1,5 +1,6 @@
 """Module for Gomoku AI algorithms."""
 import random
+from gomoku_board import is_valid_move
 
 def weak_ai(board):
     """Weak AI algorithm for Gomoku."""
