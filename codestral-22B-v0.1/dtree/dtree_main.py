@@ -1,20 +1,20 @@
-import sys
-from directory_traversal import get_size, print_directory_structure
+import os
 
-def main():
-    """
-    このスクリプトは、指定されたディレクトリの構造とサイズを表示します。
-    コマンドライン引数としてディレクトリのパスを受け取ります。
-    """
-    if len(sys.argv) != 2:
-        print("使用法: python dtree_main.py <ディレクトリのパス>")
-        sys.exit(1)
+def draw_directory_tree(path, indent=""):
+    print(indent + os.path.basename(path) + "/")
+    indent += "|  "
+    items = os.listdir(path)
+    for i, item in enumerate(items):
+        item_path = os.path.join(path, item)
+        if i == len(items) - 1:
+            prefix = "└──"
+        else:
+            prefix = "├──"
+        if os.path.isdir(item_path):
+            print(indent[:-2] + prefix, end="")
+            draw_directory_tree(item_path, indent)
+        else:
+            print(indent + prefix, item)
 
-    directory_path = sys.argv[1]
-    print("ディレクトリ構造:")
-    print_directory_structure(directory_path)
-    print("\nディレクトリサイズ:")
-    print(f"{get_size(directory_path)} バイト")
-
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    draw_directory_tree(".")
