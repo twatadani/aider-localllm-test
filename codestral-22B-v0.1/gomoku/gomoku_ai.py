@@ -1,5 +1,6 @@
 """Module for Gomoku AI algorithms."""
 import random
+import time
 from gomoku_board import is_valid_move, make_move, check_winner
 
 def weak_ai(board):
@@ -46,8 +47,8 @@ def normal_ai(board):
                     best_move = (row, col)
     return best_move
 
-def strong_ai(board):
-    """Strong AI algorithm for Gomoku using minimax with alpha-beta pruning."""
+def strong_ai(board, time_limit=15):
+    """Strong AI algorithm for Gomoku using minimax with alpha-beta pruning and time limit."""
     def evaluate(board, player):
         """Evaluate the score of a board state."""
         score = 0
@@ -82,6 +83,8 @@ def strong_ai(board):
                         alpha = max(alpha, eval)
                         if beta <= alpha:
                             break
+                if time.time() - start_time >= time_limit:
+                    break
             return max_eval
         else:
             min_eval = float('inf')
@@ -95,10 +98,13 @@ def strong_ai(board):
                         beta = min(beta, eval)
                         if beta <= alpha:
                             break
+                if time.time() - start_time >= time_limit:
+                    break
             return min_eval
 
     best_score = float('-inf')
     best_move = None
+    start_time = time.time()
     for row in range(10):
         for col in range(10):
             if is_valid_move(board, row, col):
@@ -108,4 +114,6 @@ def strong_ai(board):
                 if score > best_score:
                     best_score = score
                     best_move = (row, col)
+            if time.time() - start_time >= time_limit:
+                break
     return best_move
