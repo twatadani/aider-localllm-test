@@ -11,8 +11,8 @@ def get_size(start_path):
 def print_directory_structure(start_path):
     for dirpath, dirnames, filenames in os.walk(start_path):
         level = dirpath.replace(start_path, '').count(os.sep)
-        indent = ' ' * 4 * (level)
+        indent = '    ' * (level - 1) + '|-- ' if level > 0 else ''
         print('{}{}/'.format(indent, os.path.basename(dirpath)))
-        subindent = ' ' * 4 * (level + 1)
+        subindent = '    ' * level + '|-- ' if level > 0 else ''
         for f in filenames:
             print('{}{}'.format(subindent, f))
