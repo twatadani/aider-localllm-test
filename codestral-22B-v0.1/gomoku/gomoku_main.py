@@ -10,8 +10,8 @@ def play_game():
     """Main function to run the game."""
     board = create_board()
     print("Welcome to Gomoku!")
-    difficulty = input("Choose computer difficulty (weak, normal, strong): ")
-    ai_move_func = weak_ai if difficulty == 'weak' else normal_ai if difficulty == 'normal' else strong_ai
+    difficulty = input("Choose computer difficulty (1: weak, 2: normal, 3: strong): ")
+    ai_move_func = weak_ai if difficulty == '1' else normal_ai if difficulty == '2' else strong_ai
     player = input("Do you want to go first (y/n)? ") == 'y'
     while True:
         print_board(board)
