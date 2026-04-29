@@ -1,14 +1,14 @@
 def calculate_fibonacci(n):
-    """Calculate the nth Fibonacci number.
+    """指定された位置のフィボナッチ数を計算します。
 
     Args:
-        n (int): The position of the Fibonacci number to calculate.
+        n (int): 計算するフィボナッチ数の位置。
 
     Returns:
-        int: The nth Fibonacci number.
+        int: 指定された位置のフィボナッチ数。
     """
     if n <= 0:
-        return "Invalid input, please enter a positive integer."
+        return "無効な入力です。正の整数を入力してください。"
     elif n == 1:
         return 0
     elif n == 2:
